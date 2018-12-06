@@ -5,6 +5,8 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import RespondentesAdd from './RespondentesAdd'
+import { CSVLink } from 'react-csv'
 import { SERVER_URL } from '../constante'
 
 class RespondentesList extends Component {
@@ -17,6 +19,20 @@ class RespondentesList extends Component {
     componentDidMount = () => {
         this.fetchRespondentes();
     }
+    // addCar           car
+    addRespondentes (representantes) {
+        console.log(representantes)
+        fetch (SERVER_URL + 'respondentes',{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(representantes) //car
+        })                              // fetchCars
+        .then(response => this.fetchRespondentes())
+        .catch(err => console.error(err))
+    }
+
 
     fetchRespondentes = () => {
         fetch(SERVER_URL + 'respondentes')
@@ -57,16 +73,16 @@ class RespondentesList extends Component {
     render () {
         const columns =[{
             Header: 'Nº de Registro',
-            accessor: 'cdNumeroRegistro'
+            accessor: 'id'
         },{
             Header: 'Cod Individuo',
-            accessor: 'cdIndividuo'
+            accessor: 'cod'
         },{
             Header: 'Fonte',
-            accessor: 'cdFkTabFonte'
+            accessor: 'nomeFonte'
         },{
             Header: 'CPF',
-            accessor: 'cdCpf'
+            accessor: 'cpf'
         },{
             Header: 'Nome',
             accessor: 'nome'
@@ -84,13 +100,13 @@ class RespondentesList extends Component {
             accessor: 'cep'
         },{
             Header: 'Estado',
-            accessor: 'cdFkTabEstado'
+            accessor: 'estado'
         }, {
             Header: 'Cidade',
-            accessor: 'cdFkTabCidade'
+            accessor: 'cidade'
         }, {
             Header: 'Municipio',
-            accessor: 'cdFkTabMunicipio'
+            accessor: 'municipio'
         },{
             Header: 'sexo',
             accessor: 'sexo'
@@ -99,25 +115,25 @@ class RespondentesList extends Component {
             accessor: 'dataNascimento'
         },{
             Header: 'Faixa Etária',
-            accessor: 'cdFkTabFaixaEtaria'
+            accessor: 'faixaEtaria'
         },{
             Header: 'Estado Civil',
-            accessor: 'cdFkTabEstadoCivil'
+            accessor: 'estadoCivil'
         },{
             Header: 'Classe Social',
             accessor: 'classeSocial'
         },{
             Header: 'Nível Educação',
-            accessor: 'cdFkTabEducacao'
+            accessor: 'nivelEducacao'
         },{
             Header: 'Renda Familiar',
-            accessor: 'cdFkTabRenda'
+            accessor: 'rendaFamilia'
         },{
             Header: 'Profissao',
-            accessor: 'cdFkTabProfissao'
+            accessor: 'profissao'
         },{
             Header: 'Cargo',
-            accessor: 'cdFkPosicaoTrabalho'
+            accessor: 'cargo'
         },{
             Header: 'Moradia',
             accessor: 'moradia'
@@ -144,7 +160,25 @@ class RespondentesList extends Component {
 
         return (
             <div className="App">
-                <ReactTable data={this.state.data} columns={columns} filterable={true}/>
+              <CSVLink
+
+                data={this.state.data}
+                separator=';'
+                style={
+                  {
+                    margin: '10 auto',
+                    display: 'flex' ,
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }
+                }
+              >Exporte CSV</CSVLink>
+
+                {/*<Res addCar={this.addCar} fetchCars={this.fetchCars}*/}
+                <RespondentesAdd addRespondentes={this.addRespondentes} fetchRespondente={this.fetchRespondentes}
+                    style={{ margin: 'auto' }}
+                />
+                <ReactTable data={this.state.data} columns={columns} filterable={true} pageSize={10}/>
                 <ToastContainer autoClose={1500}/>
             </div>
         )
