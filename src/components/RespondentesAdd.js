@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import SkyLight from 'react-skylight'
 import Button from '@material-ui/core/es/Button/Button'
 import TextField from '@material-ui/core/es/TextField'
-import FormControl from '@material-ui/core/FormControl/FormControl'
-import InputLabel from '@material-ui/core/InputLabel/InputLabel'
-import Input from '@material-ui/core/Input/Input'
-import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment'
 import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 
 const styles = theme => ({
@@ -28,15 +24,15 @@ const styles = theme => ({
 
 const sexo = [
   {
-    value: 1,
+    value: '1',
     label: 'Masculino',
   },
   {
-    value: 2,
+    value: '2',
     label: 'Feminino',
   },
   {
-    value: 3,
+    value: '3',
     label: 'Não Informar',
   }
 ];
@@ -90,7 +86,7 @@ class RespondentesAdd extends Component{
       estado: '',
       cidade: '',
       municipio: '',
-      sexo: '',
+      sexo: 'Masculino',
       dataNascimento: '',
       faixaEtaria: '',
       estadoCivil: '',
@@ -147,8 +143,10 @@ class RespondentesAdd extends Component{
 
 
     };
-    // this.props.addCar(newCar);
+    console.log(respondenteNovo);
+    this.props.RespondentesAdd(respondenteNovo);
     this.refs.addDialog.hide();
+
   }
 
 
@@ -216,7 +214,7 @@ class RespondentesAdd extends Component{
 
               // className={classes.textField}
               value={this.state.sexo}
-              // onChange={this.handleChange('currency')}
+              onChange={this.handleChange}
 
 
               // onChange={this.handleChange('sexo')}

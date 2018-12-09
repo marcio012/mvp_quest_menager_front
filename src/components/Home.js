@@ -11,9 +11,9 @@ class Home extends Component{
 
 
                 <div>
-                  <h3>Márcio Heleno </h3>
-                  <h3>Vanessa</h3>
-                  <h3>João Arthur</h3>
+                  <h3>Márcio Heleno <span>Mat: 1814038</span></h3>
+                  <h3>Vanessa <span>Mat: 1510417</span></h3>
+                  <h3>João Arthur<span>Mat: 1410812/2</span></h3>
                 </div>
             </div>
         )
